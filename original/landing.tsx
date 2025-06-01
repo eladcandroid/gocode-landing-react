@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +15,7 @@ import {
   Mail,
   ArrowRight,
   Brain,
+  Cpu,
   Sparkles,
   Globe2,
   Bot,
@@ -61,29 +62,17 @@ const floatingParticlesConfig = Array(30)
         : "bg-purple-400",
   }));
 
-interface Project {
-  id: number;
-  image: string;
-  title: string;
-  description: string;
-  tech: string[];
-  details: string;
-  clientQuote: string;
-  results: string[];
-  link?: string;
-}
-
 export default function Landing() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [isSending, setIsSending] = useState(false);
-  const [sendSuccess, setSendSuccess] = useState(false);
-  const [sendError, setSendError] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [email, setEmail] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [isSending, setIsSending] = React.useState(false);
+  const [sendSuccess, setSendSuccess] = React.useState(false);
+  const [sendError, setSendError] = React.useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHebrew, setIsHebrew] = useState(() => {
     // Detect system language
-    const systemLang = navigator.language || (navigator as any).userLanguage;
+    const systemLang = navigator.language || navigator.userLanguage;
     return systemLang.includes("he") || systemLang.includes("iw");
   });
 
@@ -260,7 +249,7 @@ export default function Landing() {
 
   const t = translations[isHebrew ? "he" : "en"];
 
-  const handleContact = async (e: React.FormEvent) => {
+  const handleContact = async (e) => {
     e.preventDefault();
     setIsSending(true);
     setSendSuccess(false);
@@ -285,7 +274,7 @@ export default function Landing() {
         const payload = {
           email: email,
           message: message,
-          leadId: newLead.$id,
+          leadId: newLead.id,
           date: formattedDate,
           source: "GoCode website",
         };
@@ -328,7 +317,7 @@ New lead submitted:
 
 Email: ${email}
 Message: ${message}
-Lead ID: ${newLead.$id}
+Lead ID: ${newLead.id}
 
 Sent from: GoCode website contact form
         `,
@@ -352,7 +341,47 @@ Sent from: GoCode website contact form
     setIsSending(false);
   };
 
-  const projects: Project[] = [
+  // Alternative function using XMLHttpRequest which has better support in some cases
+  const handleContactAlt = async (e) => {
+    e.preventDefault();
+    setIsSending(true);
+    setSendSuccess(false);
+    setSendError(false);
+
+    const xhr = new XMLHttpRequest();
+    const data = JSON.stringify({ email, message });
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        setIsSending(false);
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          setEmail("");
+          setMessage("");
+          setSendSuccess(true);
+          setTimeout(() => setSendSuccess(false), 5000);
+        } else {
+          setSendError(true);
+        }
+      }
+    };
+
+    xhr.onerror = function () {
+      setIsSending(false);
+      setSendError(true);
+      console.error("XHR Error");
+    };
+
+    xhr.open(
+      "POST",
+      "https://hooks.zapier.com/hooks/catch/8942607/2c7jo4m/",
+      true
+    );
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+  };
+
+  const projects = [
     {
       id: 1,
       image:
@@ -489,11 +518,8 @@ Sent from: GoCode website contact form
     }
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
   };
 
@@ -1474,6 +1500,47 @@ Sent from: GoCode website contact form
           )}
         </DialogContent>
       </Dialog>
+
+      <style jsx global>{`
+        /* RTL Support */
+        .rtl {
+          direction: rtl;
+          text-align: right;
+        }
+
+        .rtl .ltr {
+          direction: ltr;
+          text-align: left;
+        }
+
+        .rtl .ml-2 {
+          margin-left: 0;
+          margin-right: 0.5rem;
+        }
+
+        .rtl .mr-2 {
+          margin-right: 0;
+          margin-left: 0.5rem;
+        }
+
+        .rtl .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-x-reverse: 1;
+        }
+
+        .rtl .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-x-reverse: 1;
+        }
+
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0) translateX(0);
+          }
+          50% {
+            transform: translateY(-20px) translateX(10px);
+          }
+        }
+      `}</style>
     </div>
   );
 }

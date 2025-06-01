@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LeadService } from "../services/leadService";
-import type { Lead } from "../types/Lead";
+import { Lead } from "@/entities/Lead";
 import {
   Table,
   TableBody,
@@ -8,14 +7,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "@/components/ui/table";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -23,16 +22,18 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   MailIcon,
   MessageSquare,
   Calendar,
+  ChevronDown,
   CheckCircle2,
   Clock,
   Users,
+  UserCheck,
   X,
   Filter,
   Trash2,
@@ -45,15 +46,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "@/components/ui/select";
 
 export default function Leads() {
-  const [leads, setLeads] = useState<Lead[]>([]);
+  const [leads, setLeads] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [selectedLead, setSelectedLead] = useState(null);
   const [filterStatus, setFilterStatus] = useState("all");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [leadToDelete, setLeadToDelete] = useState<Lead | null>(null);
+  const [leadToDelete, setLeadToDelete] = useState(null);
 
   useEffect(() => {
     loadLeads();
@@ -62,7 +63,7 @@ export default function Leads() {
   const loadLeads = async () => {
     setIsLoading(true);
     try {
-      const data = await LeadService.list("-created_date");
+      const data = await Lead.list("-created_date");
       setLeads(data);
     } catch (error) {
       console.error("Error loading leads:", error);
@@ -70,14 +71,14 @@ export default function Leads() {
     setIsLoading(false);
   };
 
-  const updateLeadStatus = async (id: string, status: Lead["status"]) => {
+  const updateLeadStatus = async (id, status) => {
     try {
-      await LeadService.update(id, { status });
+      await Lead.update(id, { status });
       // Update local state to avoid a full refetch
       setLeads(
-        leads.map((lead) => (lead.$id === id ? { ...lead, status } : lead))
+        leads.map((lead) => (lead.id === id ? { ...lead, status } : lead))
       );
-      if (selectedLead && selectedLead.$id === id) {
+      if (selectedLead && selectedLead.id === id) {
         setSelectedLead({ ...selectedLead, status });
       }
     } catch (error) {
@@ -86,12 +87,12 @@ export default function Leads() {
   };
 
   const deleteLead = async () => {
-    if (!leadToDelete?.$id) return;
+    if (!leadToDelete) return;
 
     try {
-      await LeadService.delete(leadToDelete.$id);
-      setLeads(leads.filter((lead) => lead.$id !== leadToDelete.$id));
-      if (selectedLead && selectedLead.$id === leadToDelete.$id) {
+      await Lead.delete(leadToDelete.id);
+      setLeads(leads.filter((lead) => lead.id !== leadToDelete.id));
+      if (selectedLead && selectedLead.id === leadToDelete.id) {
         setSelectedLead(null);
       }
       setDeleteDialogOpen(false);
@@ -101,7 +102,7 @@ export default function Leads() {
     }
   };
 
-  const handleDeleteClick = (lead: Lead, e: React.MouseEvent) => {
+  const handleDeleteClick = (lead, e) => {
     e.stopPropagation();
     setLeadToDelete(lead);
     setDeleteDialogOpen(true);
@@ -112,7 +113,7 @@ export default function Leads() {
       ? leads
       : leads.filter((lead) => lead.status === filterStatus);
 
-  const getStatusBadge = (status: Lead["status"]) => {
+  const getStatusBadge = (status) => {
     const statusConfig = {
       new: {
         color: "bg-blue-100 text-blue-800 border-blue-200",
@@ -148,10 +149,7 @@ export default function Leads() {
   };
 
   return (
-    <div
-      className="min-h-screen p-4 md:p-8"
-      style={{ backgroundColor: "#f3f4f6" }}
-    >
+    <div className="min-h-screen bg-gray-100 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Lead Management</h1>
@@ -217,7 +215,7 @@ export default function Leads() {
                     ) : filteredLeads.length > 0 ? (
                       filteredLeads.map((lead) => (
                         <TableRow
-                          key={lead.$id}
+                          key={lead.id}
                           className="cursor-pointer hover:bg-gray-50"
                           onClick={() => setSelectedLead(lead)}
                         >
@@ -242,11 +240,27 @@ export default function Leads() {
                               <Select
                                 value={lead.status}
                                 onValueChange={(value) =>
-                                  updateLeadStatus(
-                                    lead.$id!,
-                                    value as Lead["status"]
-                                  )
+                                  updateLeadStatus(lead.id, value)
                                 }
+                                onOpenChange={(open) => {
+                                  if (open) {
+                                    // This prevents the row click event from firing
+                                    // when interacting with the select
+                                    setTimeout(() => {
+                                      const selectListbox =
+                                        document.querySelector(
+                                          '[role="listbox"]'
+                                        );
+                                      if (selectListbox) {
+                                        selectListbox.addEventListener(
+                                          "click",
+                                          (e) => e.stopPropagation(),
+                                          { once: true }
+                                        );
+                                      }
+                                    }, 0);
+                                  }
+                                }}
                               >
                                 <SelectTrigger
                                   className="h-8 w-[130px]"
@@ -283,8 +297,8 @@ export default function Leads() {
                     ) : (
                       <TableRow>
                         <TableCell
+                          colSpan={4}
                           className="text-center py-8 text-gray-500"
-                          style={{ gridColumn: "1 / -1" }}
                         >
                           No leads found
                         </TableCell>
@@ -363,10 +377,7 @@ export default function Leads() {
                             }
                             size="sm"
                             onClick={() =>
-                              updateLeadStatus(
-                                selectedLead.$id!,
-                                status as Lead["status"]
-                              )
+                              updateLeadStatus(selectedLead.id, status)
                             }
                             className={
                               selectedLead.status === status
