@@ -21,7 +21,6 @@ import {
   X,
   ExternalLink,
   ChevronDown,
-  Languages,
   CheckCircle2,
   AlertTriangle,
   Loader2,
@@ -163,13 +162,17 @@ export default function Landing() {
       },
       footer: {
         services: "Services",
-        webDev: "Web Development",
+        aiDevelopment: "AI Development",
+        webDevelopment: "Web Development",
         mobileApps: "Mobile Apps",
-        uiDesign: "UI/UX Design",
-        aiSolutions: "AI Solutions",
+        customSolutions: "Custom Solutions",
         navigation: "Navigation",
         aboutUs: "About Us",
+        ourProjects: "Our Projects",
+        getInTouch: "Get In Touch",
+        contactInfo: "Contact Info",
         rights: "All rights reserved",
+        tagline: "Transforming ideas into powerful digital solutions",
       },
     },
     he: {
@@ -247,13 +250,17 @@ export default function Landing() {
       },
       footer: {
         services: "שירותים",
-        webDev: "פיתוח אתרים",
+        aiDevelopment: "פיתוח בינה מלאכותית",
+        webDevelopment: "פיתוח אתרים",
         mobileApps: "אפליקציות מובייל",
-        uiDesign: "עיצוב ממשק",
-        aiSolutions: "פתרונות AI",
+        customSolutions: "פתרונות מותאמים",
         navigation: "ניווט",
-        aboutUs: "אודות",
+        aboutUs: "אודותינו",
+        ourProjects: "הפרויקטים שלנו",
+        getInTouch: "צור קשר",
+        contactInfo: "פרטי התקשרות",
         rights: "כל הזכויות שמורות",
+        tagline: "הופכים רעיונות לפתרונות דיגיטליים חזקים",
       },
     },
   };
@@ -503,6 +510,7 @@ Sent from: GoCode website contact form
       className={`min-h-screen bg-gray-900 text-gray-100 ${
         isHebrew ? "rtl" : "ltr"
       }`}
+      style={isHebrew ? { fontFamily: "Rubik, system-ui, sans-serif" } : {}}
     >
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
@@ -516,34 +524,47 @@ Sent from: GoCode website contact form
                   className="h-8 md:h-10"
                 />
               </div>
-              <h1 className="ml-3 text-xl md:text-2xl font-bold text-white">
-                GoCode
+              <h1
+                className={`ml-3 text-xl md:text-2xl font-bold text-white flex items-center ${
+                  isHebrew ? "font-heebo" : ""
+                }`}
+                style={
+                  isHebrew
+                    ? { fontFamily: "Rubik, system-ui, sans-serif" }
+                    : { fontFamily: "Poppins, Inter, system-ui, sans-serif" }
+                }
+              >
+                {isHebrew ? "גו - קוד" : "GoCode"}
               </h1>
             </div>
 
             <div className="hidden md:flex items-center gap-6">
-              <nav className="flex items-center space-x-6">
+              <nav
+                className={`flex items-center ${
+                  isHebrew ? "space-x-6 space-x-reverse" : "space-x-6"
+                }`}
+              >
                 <button
                   onClick={() => scrollToSection("about")}
-                  className="text-gray-300 hover:text-pink-400 transition-colors"
+                  className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                 >
                   {t.nav.about}
                 </button>
                 <button
                   onClick={() => scrollToSection("features")}
-                  className="text-gray-300 hover:text-pink-400 transition-colors"
+                  className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                 >
                   {t.nav.features}
                 </button>
                 <button
                   onClick={() => scrollToSection("projects")}
-                  className="text-gray-300 hover:text-pink-400 transition-colors"
+                  className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                 >
                   {t.nav.projects}
                 </button>
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="px-4 py-2 rounded-md bg-pink-600 text-white hover:bg-pink-700 transition-colors"
+                  className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                 >
                   {t.nav.contactUs}
                 </button>
@@ -552,10 +573,10 @@ Sent from: GoCode website contact form
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsHebrew(!isHebrew)}
-                className="text-gray-300 hover:text-pink-400"
+                className="text-gray-300 hover:text-pink-400 font-bold"
                 title={isHebrew ? "Switch to English" : "החלף לעברית"}
               >
-                <Languages className="h-5 w-5" />
+                {isHebrew ? "EN" : "עב"}
               </Button>
             </div>
 
@@ -567,7 +588,7 @@ Sent from: GoCode website contact form
                 className="text-gray-300 hover:text-pink-400"
                 title={isHebrew ? "Switch to English" : "החלף לעברית"}
               >
-                <Languages className="h-5 w-5" />
+                <Globe2 className="h-5 w-5" />
               </Button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -590,25 +611,25 @@ Sent from: GoCode website contact form
                 <nav className="flex flex-col space-y-4 py-4">
                   <button
                     onClick={() => scrollToSection("about")}
-                    className="text-gray-300 hover:text-pink-400 transition-colors"
+                    className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                   >
                     {t.nav.about}
                   </button>
                   <button
                     onClick={() => scrollToSection("features")}
-                    className="text-gray-300 hover:text-pink-400 transition-colors"
+                    className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                   >
                     {t.nav.features}
                   </button>
                   <button
                     onClick={() => scrollToSection("projects")}
-                    className="text-gray-300 hover:text-pink-400 transition-colors"
+                    className="text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                   >
                     {t.nav.projects}
                   </button>
                   <button
                     onClick={() => scrollToSection("contact")}
-                    className="px-4 py-2 rounded-md bg-pink-600 text-white hover:bg-pink-700 transition-colors"
+                    className="px-4 py-2 rounded-md text-gray-300 hover:text-pink-400 transition-colors !bg-transparent"
                   >
                     {t.nav.contactUs}
                   </button>
@@ -827,7 +848,10 @@ Sent from: GoCode website contact form
                       transition={{ duration: 0.5 }}
                     />
                     {t.hero.getStarted}
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight
+                      className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform"
+                      style={isHebrew ? { transform: "scaleX(-1)" } : {}}
+                    />
                   </Button>
                 </motion.div>
 
@@ -865,7 +889,7 @@ Sent from: GoCode website contact form
               >
                 <button
                   onClick={() => scrollToSection("about")}
-                  className="text-white/80 hover:text-white transition-colors flex flex-col items-center group"
+                  className="text-white/80 hover:text-white transition-colors flex flex-col items-center group !bg-transparent"
                 >
                   <span className="mb-2 group-hover:text-pink-400 transition-colors">
                     {t.hero.discoverMore}
@@ -1075,7 +1099,7 @@ Sent from: GoCode website contact form
             </motion.div>
 
             <motion.div
-              className="flex items-center justify-center p-6 bg-white/5 rounded-xl"
+              className="flex items-center justify-center p-6 rounded-xl"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -1111,58 +1135,100 @@ Sent from: GoCode website contact form
       <section id="contact" className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div {...fadeIn}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-pink-500">
+            <motion.div
+              {...fadeIn}
+              className={`${!isHebrew ? "text-left" : ""}`}
+            >
+              <h2
+                className={`text-3xl md:text-4xl font-bold mb-6 text-pink-500 ${
+                  !isHebrew ? "text-left" : ""
+                }`}
+              >
                 {t.contact.title}
               </h2>
-              <p className="text-xl text-gray-300 mb-8">{t.contact.subtitle}</p>
+              <p
+                className={`text-xl text-gray-300 mb-8 ${
+                  !isHebrew ? "text-left" : ""
+                }`}
+              >
+                {t.contact.subtitle}
+              </p>
               <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-pink-900/50 flex items-center justify-center">
-                    <Phone className="h-6 w-6 text-pink-400" />
-                  </div>
+                <motion.div
+                  className="flex items-center gap-4 group"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <motion.div
+                    className="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-pink-500/25 transition-all duration-300"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Phone className="h-7 w-7 text-white" />
+                  </motion.div>
                   <div>
-                    <p className="font-medium text-white">{t.contact.phone}</p>
+                    <p className="font-medium text-white/90 text-sm uppercase tracking-wide">
+                      {t.contact.phone}
+                    </p>
                     <a
                       href="tel:+972525710099"
-                      className="text-pink-400 hover:underline"
+                      className="text-xl font-semibold text-pink-400 hover:text-pink-300 transition-colors duration-200 block mt-1 hover:scale-105 transform origin-left"
+                      dir="ltr"
                     >
                       +972 52 571 0099
                     </a>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-pink-900/50 flex items-center justify-center">
-                    <Mail className="h-6 w-6 text-pink-400" />
-                  </div>
+                </motion.div>
+                <motion.div
+                  className="flex items-center gap-4 group"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <motion.div
+                    className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Mail className="h-7 w-7 text-white" />
+                  </motion.div>
                   <div>
-                    <p className="font-medium text-white">{t.contact.email}</p>
+                    <p className="font-medium text-white/90 text-sm uppercase tracking-wide">
+                      {t.contact.email}
+                    </p>
                     <a
                       href="mailto:contact@gocode.co.il"
-                      className="text-pink-400 hover:underline"
+                      className="text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-200 block mt-1 hover:scale-105 transform origin-left"
                     >
                       contact@gocode.co.il
                     </a>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-pink-900/50 flex items-center justify-center">
-                    <MessageSquare className="h-6 w-6 text-pink-400" />
-                  </div>
+                </motion.div>
+                <motion.div
+                  className="flex items-center gap-4 group"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <motion.div
+                    className="w-14 h-14 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg group-hover:shadow-green-500/25 transition-all duration-300"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <MessageSquare className="h-7 w-7 text-white" />
+                  </motion.div>
                   <div>
-                    <p className="font-medium text-white">
+                    <p className="font-medium text-white/90 text-sm uppercase tracking-wide">
                       {t.contact.whatsapp}
                     </p>
                     <a
                       href="https://wa.me/972525710099"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-pink-400 hover:underline"
+                      className="text-xl font-semibold text-green-400 hover:text-green-300 transition-colors duration-200 block mt-1 hover:scale-105 transform origin-left"
                     >
                       {t.contact.messageUs}
                     </a>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
             <motion.div
@@ -1275,9 +1341,7 @@ Sent from: GoCode website contact form
                   className="w-full"
                 />
               </div>
-              <p className="text-gray-400">
-                Transforming ideas into powerful digital solutions
-              </p>
+              <p className="text-gray-400">{t.footer.tagline}</p>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-gray-200">
@@ -1285,23 +1349,35 @@ Sent from: GoCode website contact form
               </h4>
               <ul className="space-y-2 text-gray-400">
                 <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("features")}>
-                    {t.footer.webDev}
+                  <button
+                    onClick={() => scrollToSection("features")}
+                    className="!bg-transparent"
+                  >
+                    {t.footer.aiDevelopment}
                   </button>
                 </li>
                 <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("features")}>
+                  <button
+                    onClick={() => scrollToSection("features")}
+                    className="!bg-transparent"
+                  >
+                    {t.footer.webDevelopment}
+                  </button>
+                </li>
+                <li className="hover:text-pink-400 transition-colors cursor-pointer">
+                  <button
+                    onClick={() => scrollToSection("features")}
+                    className="!bg-transparent"
+                  >
                     {t.footer.mobileApps}
                   </button>
                 </li>
                 <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("features")}>
-                    {t.footer.uiDesign}
-                  </button>
-                </li>
-                <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("about")}>
-                    {t.footer.aiSolutions}
+                  <button
+                    onClick={() => scrollToSection("features")}
+                    className="!bg-transparent"
+                  >
+                    {t.footer.customSolutions}
                   </button>
                 </li>
               </ul>
@@ -1312,42 +1388,66 @@ Sent from: GoCode website contact form
               </h4>
               <ul className="space-y-2 text-gray-400">
                 <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("about")}>
+                  <button
+                    onClick={() => scrollToSection("about")}
+                    className="!bg-transparent"
+                  >
                     {t.footer.aboutUs}
                   </button>
                 </li>
                 <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("projects")}>
-                    {t.nav.projects}
+                  <button
+                    onClick={() => scrollToSection("projects")}
+                    className="!bg-transparent"
+                  >
+                    {t.footer.ourProjects}
                   </button>
                 </li>
                 <li className="hover:text-pink-400 transition-colors cursor-pointer">
-                  <button onClick={() => scrollToSection("contact")}>
-                    {t.nav.contactUs}
+                  <button
+                    onClick={() => scrollToSection("contact")}
+                    className="!bg-transparent"
+                  >
+                    {t.footer.getInTouch}
                   </button>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-gray-200">Follow Us</h4>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-pink-400">
-                  <Globe2 className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://wa.me/972525710099"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-pink-400"
-                >
-                  <MessageSquare className="h-6 w-6" />
-                </a>
-                <a
-                  href="mailto:gocodeweb@gmail.com"
-                  className="text-gray-400 hover:text-pink-400"
-                >
-                  <Mail className="h-6 w-6" />
-                </a>
+              <h4 className="font-semibold mb-4 text-gray-200">
+                {t.footer.contactInfo}
+              </h4>
+              <div className="space-y-2 text-gray-400">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  <a
+                    href="tel:+972525710099"
+                    className="hover:text-pink-400 transition-colors"
+                    dir="ltr"
+                  >
+                    +972 52 571 0099
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  <a
+                    href="mailto:contact@gocode.co.il"
+                    className="hover:text-pink-400 transition-colors"
+                  >
+                    contact@gocode.co.il
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4" />
+                  <a
+                    href="https://wa.me/972525710099"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-pink-400 transition-colors"
+                  >
+                    WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -1377,7 +1477,7 @@ Sent from: GoCode website contact form
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="grid md:grid-cols-3 gap-6 mt-4">
+              <div className="grid md:grid-cols-3 gap-6 mt-4 mb-6">
                 <div className="md:col-span-2">
                   <img
                     src={selectedProject.image}
@@ -1451,7 +1551,13 @@ Sent from: GoCode website contact form
                 </div>
               </div>
 
-              <DialogFooter className="flex-col sm:flex-row gap-2">
+              <DialogFooter
+                className={`flex-col sm:flex-row gap-2 ${
+                  isHebrew
+                    ? "sm:justify-start sm:space-x-reverse"
+                    : "sm:justify-end sm:space-x-2"
+                }`}
+              >
                 <DialogClose asChild>
                   <Button
                     variant="outline"

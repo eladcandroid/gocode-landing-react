@@ -57,6 +57,7 @@ body {
 
 #root {
   min-height: 100vh;
+  width: 100%;
 }
 
 a {
@@ -124,7 +125,8 @@ button:focus-visible {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
   }
   50% {
