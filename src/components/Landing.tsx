@@ -80,11 +80,7 @@ export default function Landing() {
   const [sendError, setSendError] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isHebrew, setIsHebrew] = useState(() => {
-    // Detect system language
-    const systemLang = navigator.language || (navigator as any).userLanguage;
-    return systemLang.includes("he") || systemLang.includes("iw");
-  });
+  const [isHebrew, setIsHebrew] = useState(true); // Default to Hebrew
 
   const translations = {
     en: {
