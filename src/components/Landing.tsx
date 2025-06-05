@@ -512,7 +512,7 @@ Sent from: GoCode website contact form
       style={isHebrew ? { fontFamily: "Rubik, system-ui, sans-serif" } : {}}
     >
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+      <header className="fixed top-0 start-0 end-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             <div className="flex items-center">
@@ -524,7 +524,7 @@ Sent from: GoCode website contact form
                 />
               </div>
               <h1
-                className={`ml-3 text-xl md:text-2xl font-bold text-white flex items-center ${
+                className={`ms-3 text-xl md:text-2xl font-bold text-white flex items-center ${
                   isHebrew ? "font-heebo" : ""
                 }`}
                 style={
@@ -656,7 +656,7 @@ Sent from: GoCode website contact form
               repeatType: "reverse",
               ease: "easeInOut",
             }}
-            className="absolute top-20 left-[10%] text-8xl text-blue-500 font-mono transform -rotate-12"
+            className="absolute top-20 start-[10%] text-8xl text-blue-500 font-mono transform -rotate-12"
           >
             {"</>"}
           </motion.div>
@@ -671,7 +671,7 @@ Sent from: GoCode website contact form
               repeatType: "reverse",
               ease: "easeInOut",
             }}
-            className="absolute bottom-40 right-[10%] text-7xl text-pink-500 font-mono transform rotate-12"
+            className="absolute bottom-40 end-[10%] text-7xl text-pink-500 font-mono transform rotate-12"
           >
             {"{}"}
           </motion.div>
@@ -724,7 +724,7 @@ Sent from: GoCode website contact form
 
           {/* Glowing orbs */}
           <motion.div
-            className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-500/30 rounded-full blur-3xl"
+            className="absolute top-1/4 start-1/4 w-32 h-32 bg-blue-500/30 rounded-full blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.6, 0.3],
@@ -736,7 +736,7 @@ Sent from: GoCode website contact form
             }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-pink-500/30 rounded-full blur-3xl"
+            className="absolute bottom-1/4 end-1/4 w-32 h-32 bg-pink-500/30 rounded-full blur-3xl"
             animate={{
               scale: [1.2, 1, 1.2],
               opacity: [0.3, 0.6, 0.3],
@@ -848,7 +848,7 @@ Sent from: GoCode website contact form
                     />
                     {t.hero.getStarted}
                     <ArrowRight
-                      className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform"
+                      className="ms-2 h-5 w-5 group-hover:translate-x-1 transition-transform"
                       style={isHebrew ? { transform: "scaleX(-1)" } : {}}
                     />
                   </Button>
@@ -1309,13 +1309,13 @@ Sent from: GoCode website contact form
                         />
                         {isSending ? (
                           <div className="flex items-center justify-center">
-                            <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                            <Loader2 className="w-4 h-4 animate-spin me-2" />
                             {t.contact.sending}
                           </div>
                         ) : (
                           <div className="flex items-center justify-center">
                             {t.contact.sendMessage}
-                            <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                            <Send className="ms-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </div>
                         )}
                       </Button>
@@ -1467,7 +1467,7 @@ Sent from: GoCode website contact form
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-white flex items-center gap-2">
                   {selectedProject.title}
-                  <span className="bg-pink-600 text-xs rounded-full px-2 py-1 ml-2">
+                  <span className="bg-pink-600 text-xs rounded-full px-2 py-1 ms-2">
                     {t.projects.caseStudy}
                   </span>
                 </DialogTitle>
@@ -1532,7 +1532,7 @@ Sent from: GoCode website contact form
                       <p className="text-sm text-gray-400">
                         {t.projects.testimonial}
                       </p>
-                      <blockquote className="border-l-2 border-pink-500 pl-4 mt-2 text-white italic">
+                      <blockquote className="border-s-2 border-pink-500 ps-4 mt-2 text-white italic">
                         "{selectedProject.clientQuote}"
                       </blockquote>
                     </div>
@@ -1570,7 +1570,7 @@ Sent from: GoCode website contact form
                     className="bg-blue-600 hover:bg-blue-700"
                     onClick={() => window.open(selectedProject.link, "_blank")}
                   >
-                    <ExternalLink className="w-4 h-4 mr-2" />
+                    <ExternalLink className="w-4 h-4 me-2" />
                     {t.projects.visitDemo}
                   </Button>
                 )}
