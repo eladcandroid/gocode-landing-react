@@ -155,6 +155,8 @@ export default function Landing() {
         howCanWeHelp: "How can we help you?",
         sendMessage: "Send Message",
         sending: "Sending...",
+        successMessage: "Message received! We'll get back to you soon.",
+        errorMessage: "Failed to send message. Please try again.",
       },
       footer: {
         services: "Services",
@@ -243,6 +245,8 @@ export default function Landing() {
         howCanWeHelp: "איך נוכל לעזור?",
         sendMessage: "שלח הודעה",
         sending: "שולח...",
+        successMessage: "ההודעה התקבלה! נחזור אליך בקרוב.",
+        errorMessage: "נכשל בשליחת ההודעה. אנא נסה שוב.",
       },
       footer: {
         services: "שירותים",
@@ -1246,9 +1250,7 @@ Sent from: GoCode website contact form
                     >
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="h-5 w-5 text-green-400" />
-                        <span>
-                          Message received! We'll get back to you soon.
-                        </span>
+                        <span>{t.contact.successMessage}</span>
                       </div>
                     </motion.div>
                   )}
@@ -1261,7 +1263,7 @@ Sent from: GoCode website contact form
                     >
                       <div className="flex items-center gap-2">
                         <AlertTriangle className="h-5 w-5 text-red-400" />
-                        <span>Failed to send message. Please try again.</span>
+                        <span>{t.contact.errorMessage}</span>
                       </div>
                     </motion.div>
                   )}
