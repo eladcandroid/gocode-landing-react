@@ -1,0 +1,12 @@
+{
+  "name": "send-lead-notification-function",
+  "version": "1.0.0",
+  "description": "Appwrite function to send email notifications when new leads are created",
+  "main": "src/main.js",
+  "dependencies": {
+    "node-appwrite": "^13.0.0"
+  },
+  "scripts": {
+    "start": "node src/main.js"
+  }
+}
