@@ -274,6 +274,8 @@ export default function Landing() {
       const formattedDate = format(currentDate, "yyyy-MM-dd HH:mm:ss");
 
       // Save the lead to Base44
+      console.log("Current origin:", window.location.origin);
+      console.log("Attempting to create lead...");
       const newLead = await Lead.create({
         email: email,
         message: message,
@@ -281,6 +283,7 @@ export default function Landing() {
         source: "website",
         contact_date: currentDate.toISOString(),
       });
+      console.log("Lead created successfully:", newLead);
 
       // Call the Make.com webhook with formatted date - NOTE: We're stringifying directly
       try {
