@@ -1076,7 +1076,7 @@ Sent from: GoCode website contact form
             className="text-3xl md:text-4xl font-bold text-center mb-16 text-pink-500"
             {...fadeIn}
           >
-            Trusted By
+            נבחר על ידי
           </motion.h2>
           <div className="flex flex-wrap justify-center items-center gap-12">
             <motion.div
